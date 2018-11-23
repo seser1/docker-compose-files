@@ -1,0 +1,43 @@
+version: "2"
+services:
+  mysql:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: gogs
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: gogs
+    networks:
+      gogs-net:
+        ipv4_address: 172.16.238.2
+  gogs:
+    image: gogs/gogs:0.11.66
+    restart: always
+    ports:
+      - "10022:22"
+      - "13000:3000"
+    links:
+      - mysql
+    environment:
+      - "RUN_CROND=true"
+    networks:
+      - gogs-net
+    volumes:
+      - "./gogs-data:/data"
+    depends_on:
+      - mysql
+
+networks:
+  gogs-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
+
+volumes:
+  db-data:
+    driver: local
+  gogs-data:
+    driver: local
