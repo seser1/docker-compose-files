@@ -1,5 +1,19 @@
 version: "2"
 services:
+  nginx:
+    image: nginx:1.15.6
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./logs/nginx/:/var/log/nginx/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    hostname: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      gogs-net:
+        ipv4_address: 172.16.238.4
   mysql:
     image: mysql:5.7.22
     environment:
@@ -13,9 +27,9 @@ services:
   gogs:
     image: gogs/gogs:0.11.66
     restart: always
-    ports:
-      - "10022:22"
-      - "13000:3000"
+#    ports:
+#      - "10022:22"
+#      - "13000:3000"
     links:
       - mysql
     environment:
@@ -26,6 +40,9 @@ services:
       - "./gogs-data:/data"
     depends_on:
       - mysql
+    networks:
+      gogs-net:
+        ipv4_address: 172.16.238.3
 
 networks:
   gogs-net:

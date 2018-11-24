@@ -1,1 +1,6 @@
+
+#log files of ngix
 *.log
+
+#gogs data directory
+/gogs-data
