@@ -1,6 +1,5 @@
 version: "2"
 services:
-
   nginx:
     image: nginx:1.15.6
     environment:
@@ -8,57 +7,8 @@ services:
     volumes:
       - ./logs/nginx/:/var/log/nginx/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/ssl/:/etc/nginx/ssl/
     hostname: nginx
     ports:
       - "80:80"
       - "443:443"
-    networks:
-      gogs-net:
-        ipv4_address: 172.16.238.2
-
-  gogs:
-    image: gogs/gogs:0.11.66
-    restart: always
-    ports:
-      - "13000:3000"
-#      - "10022:22"
-    links:
-      - mysql
-    environment:
-      - "RUN_CROND = true"
-      - "ROOT_URL = http://192.168.99.100/gogs/"
-    networks:
-      - gogs-net
-    volumes:
-      - "./gogs-data:/data"
-    depends_on:
-      - mysql
-    networks:
-      gogs-net:
-        ipv4_address: 172.16.238.3
-
-  mysql:
-    image: mysql:5.7.22
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_USER: gogs
-      MYSQL_PASSWORD: pass
-      MYSQL_DATABASE: gogs
-    networks:
-      gogs-net:
-        ipv4_address: 172.16.238.4
-
-networks:
-  gogs-net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
-
-volumes:
-  db-data:
-    driver: local
-  gogs-data:
-    driver: local
