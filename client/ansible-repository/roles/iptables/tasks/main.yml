@@ -1,19 +1,47 @@
+# TODO log output
+
+- name: Change INPUT policy to ACCEPT
+  iptables:
+    chain: INPUT
+    policy: ACCEPT
+
 - name: Flush iptables
   iptables:
     flush: true
 
-- name: iptables established
+- name: Keep established connection
   iptables:
     chain: INPUT
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
-- name: iptables INPUT
+- name: Accept local
+  iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: iptables accept ping
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    jump: ACCEPT
+
+- name: Open ssh port
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    match: tcp
+    #    destination_port: 22
+    destination_port: "{{ iptables_ssh_port }}"
+    jump: ACCEPT
+
+- name: DROP other INPUT
   iptables:
     chain: INPUT
     policy: DROP
 
-- name: iptables OUTPUT
+- name: ACCEPT OUTPUT
   iptables:
     chain: OUTPUT
     policy: ACCEPT
@@ -23,23 +51,10 @@
 #    protocol: tcp
 #    tcp_flags: ALL=NON
 #    jump: DROP
-
 #- name: iptables drop stealth
 #  iptables:
 #    chain: INPUT
 #    protocol: tcp
 #    tcp_flags: ALL=ALL
 #    jump: DROP
-#  become: yes
-#- name: iptables accept local
-#  iptables:
-#    chain: INPUT
-#    in_interface: lo
-#    jump: ACCEPT
-#  become: yes
-#- name: iptables accept ping
-#  iptables:
-#    chain: INPUT
-#    protocol: icmp
-#    jump: ACCEPT
 #  become: yes
