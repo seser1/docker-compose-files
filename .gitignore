@@ -1,8 +1,16 @@
 
-#log files of ngix
+# log files of ngix
 *.log
-#ssl keys
+# ssl keys
 ssl/
 
-#gogs data directory
-/gogs-data
+# gogs data directory
+gogs-data/
+
+# ansible host file
+hosts
+# ansible retry file
+*.retry
+
+# vagrant auto-generated files
+.vagrant/

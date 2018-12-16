@@ -1,0 +1,7 @@
+- name: Pull from github repository
+  shell: git clone https://github.com/seser1/docker-compose-files.git "{{pull-git_working_directory}}"
+
+- name: Run docker-compose
+  shell: |
+    cd "{{pull-git_working_directory}}/docker-compose-files/server"
+    docker-compose up

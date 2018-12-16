@@ -20,9 +20,6 @@ services:
   gogs:
     image: gogs/gogs:0.11.66
     restart: always
-    ports:
-      - "13000:3000"
-#      - "10022:22"
     links:
       - mysql
     environment:

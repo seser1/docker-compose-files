@@ -1,0 +1,6 @@
+- hosts: web
+  sudo: yes
+  roles:
+    #- docker
+    - { role: sshd, become: yes }
+    - { role: iptables, become: yes }

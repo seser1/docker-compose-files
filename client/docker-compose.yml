@@ -1,0 +1,10 @@
+version: "2"
+services:
+  ansible:
+    build: "./ansible"
+    tty: true
+    container_name: "ssr_ansible"
+    volumes:
+      - ./ansible-repository/:/etc/ansible/
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
+    command: /bin/bash
