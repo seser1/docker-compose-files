@@ -10,4 +10,4 @@ TARGET="${SCRIPT_DIR}/test.yml"
 echo $TARGET
 
 #ansible-playbook -u vagrant -i hosts -k --ask-become-pass $TARGET
-ansible-playbook -u vagrant -i hosts --ask-become-pass $TARGET
+ansible-playbook -v -u vagrant -i hosts --ask-become-pass $TARGET

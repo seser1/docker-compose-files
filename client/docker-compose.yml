@@ -6,4 +6,5 @@ services:
     container_name: "ssr_ansible"
     volumes:
       - ./ansible-repository/:/etc/ansible/
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
     command: /bin/bash

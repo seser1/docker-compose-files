@@ -5,6 +5,6 @@
   tags:
     - case-1
   roles:
-    #- { role: init, become: yes }
-    - { role: docker, become: yes }
-    #- { role: iptables, become: yes }
+    #- { role: sshd, become: yes }
+    #- { role: docker, become: yes }
+    - { role: iptables, become: yes }
