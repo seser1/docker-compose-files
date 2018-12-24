@@ -1,7 +1,17 @@
 - name: Pull from github repository
-  shell: git clone https://github.com/seser1/docker-compose-files.git "{{pull-git_working_directory}}"
+  git: repo=https://github.com/seser1/docker-compose-files.git dest="{{ pull_git_working_directory }}/docker-files"
+
+- name: Copy ssl key to remote
+  copy:
+    src: ssl
+    dest: "{{ pull_git_working_directory }}/docker-files/server/nginx"
+
+- name: Copy gogs settings to remote
+  copy:
+    src: gogs/app.ini
+    dest: "{{ pull_git_working_directory }}/docker-files/server/gogs-data/gogs/conf/app.ini"
 
 - name: Run docker-compose
   shell: |
-    cd "{{pull-git_working_directory}}/docker-compose-files/server"
-    docker-compose up
+    cd "{{ pull_git_working_directory }}/docker-files/server"
+    docker-compose up -d

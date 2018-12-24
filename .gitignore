@@ -3,6 +3,8 @@
 *.log
 # ssl keys
 ssl/
+# htpasswd
+.htpasswd
 
 # gogs data directory
 gogs-data/

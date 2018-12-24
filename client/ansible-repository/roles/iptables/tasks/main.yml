@@ -16,13 +16,6 @@
 - name: Drop stealth scan
   shell: iptables -I INPUT -p tcp --tcp-flags ALL ALL -j DROP
 
-#- name: Drop none
-#  iptables:
-#    chain: INPUT
-#    protocol: tcp
-#    tcp_flags: ALL=NON
-#    jump: DROP
-
 - name: Keep established connection
   iptables:
     chain: INPUT
@@ -41,13 +34,28 @@
     protocol: icmp
     jump: ACCEPT
 
-- name: Open ssh port
+- name: ACCEPT ssh INPUT
   iptables:
     chain: INPUT
     protocol: tcp
     match: tcp
-    #    destination_port: 22
     destination_port: "{{ iptables_ssh_port }}"
+    jump: ACCEPT
+
+- name: ACCEPT http INPUT
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    match: tcp
+    destination_port: 80
+    jump: ACCEPT
+
+- name: ACCEPT https INPUT
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    match: tcp
+    destination_port: 443
     jump: ACCEPT
 
 - name: DROP other INPUT
@@ -59,16 +67,3 @@
   iptables:
     chain: OUTPUT
     policy: ACCEPT
-#- name: iptables drop none
-#  iptables:
-#    chain: INPUT
-#    protocol: tcp
-#    tcp_flags: ALL=NON
-#    jump: DROP
-#- name: iptables drop stealth
-#  iptables:
-#    chain: INPUT
-#    protocol: tcp
-#    tcp_flags: ALL=ALL
-#    jump: DROP
-#  become: yes
