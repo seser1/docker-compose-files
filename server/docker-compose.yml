@@ -12,6 +12,7 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
       - ./nginx/ssl/:/etc/nginx/ssl/
       - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+      - ./nginx/html/:/usr/share/nginx/html/
     hostname: nginx
     ports:
       - "80:80"
@@ -19,7 +20,6 @@ services:
     networks:
       gogs-net:
         ipv4_address: 172.16.238.2
-  # new docker container → apt-get install apache2-utils
 
   gogs:
     image: gogs/gogs:0.11.66

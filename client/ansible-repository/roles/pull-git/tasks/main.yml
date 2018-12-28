@@ -1,5 +1,8 @@
 - name: Pull from github repository
-  git: repo=https://github.com/seser1/docker-compose-files.git dest="{{ pull_git_working_directory }}/docker-files"
+  git:
+    repo: https://github.com/seser1/docker-compose-files.git
+    dest: "{{ pull_git_working_directory }}/docker-files"
+    force: true
 
 - name: Copy ssl key to remote
   copy:

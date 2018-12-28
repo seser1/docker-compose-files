@@ -67,3 +67,6 @@
   iptables:
     chain: OUTPUT
     policy: ACCEPT
+
+- name : rewrite Docker settings by restarting docker
+  shell: service docker restart

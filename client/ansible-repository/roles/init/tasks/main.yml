@@ -1,4 +1,9 @@
 #- name: Create user
 #- name: Sudo setting
 # update
-# key
+
+- name: Install vim
+  shell: apt-get install -y vim
+
+- name: Install htpasswd
+  shell: apt install -y apache2-utils
