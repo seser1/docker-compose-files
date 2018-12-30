@@ -42,6 +42,14 @@
     destination_port: "{{ iptables_ssh_port }}"
     jump: ACCEPT
 
+- name: ACCEPT ssh(gogs) INPUT
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    match: tcp
+    destination_port: "{{ iptables_ssh_gogs_port }}"
+    jump: ACCEPT
+
 - name: ACCEPT http INPUT
   iptables:
     chain: INPUT
@@ -68,5 +76,7 @@
     chain: OUTPUT
     policy: ACCEPT
 
-- name : rewrite Docker settings by restarting docker
-  shell: service docker restart
+- name: rewrite Docker settings by restarting docker
+  service:
+    name: docker
+    state: restarted
