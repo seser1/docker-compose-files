@@ -14,6 +14,14 @@
     src: gogs/app.ini
     dest: "{{ pull_git_working_directory }}/docker-files/server-repos/data/gogs/gogs/conf/app.ini"
 
+- name: Create .htpasswd file
+  htpasswd:
+    path: "{{ pull_git_working_directory }}/docker-files/server-repos/data/nginx/.htpasswd"
+    name: "{{ basic_auth_user }}" // TODO: Add encrypted user-passwd file
+    password: "{{ basic_auth_passwd }}"
+    owner: root
+    mode: 0640
+
 - name: Run docker-compose
   shell: |
     cd "{{ pull_git_working_directory }}/docker-files/server-repos"
