@@ -6,9 +6,6 @@ ssl/
 # htpasswd
 .htpasswd
 
-# gogs data directory
-gogs-data/
-
 # ansible host file
 hosts
 # ansible retry file

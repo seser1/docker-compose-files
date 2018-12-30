@@ -1,9 +1,9 @@
 version: "2"
 services:
   ansible:
-    build: "./ansible"
+    build: "./ansible-image"
     tty: true
-    container_name: "ansible"
+    container_name: "ansible_client"
     volumes:
       - ./ansible-repository/:/etc/ansible/
       - ~/.ssh/id_rsa:/root/.ssh/id_rsa

@@ -1,8 +1,0 @@
-- hosts: remote
-  sudo: yes
-  vars:
-    ssh_port: 23456
-  roles:
-    - { role: sshd, become: yes, sshd_ssh_port: "{{ ssh_port }}" }
-    - { role: iptables, become: yes, iptables_ssh_port: "{{ ssh_port }}" }
-    - { role: pull-git, become: yes }
