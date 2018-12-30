@@ -4,5 +4,9 @@
     ssh_port: 23456
   roles:
     - { role: sshd, sshd_ssh_port: "{{ ssh_port }}" }
-    - { role: iptables, iptables_ssh_port: "{{ ssh_port }}" }
+    - {
+        role: iptables,
+        iptables_ssh_port: "{{ ssh_port }}",
+        iptables_ssh_gogs_port: 23457,
+      }
     - { role: pull-git }
