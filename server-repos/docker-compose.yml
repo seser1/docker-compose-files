@@ -18,6 +18,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "23457:23457"
     networks:
       gogs-net:
         ipv4_address: 172.16.238.2
