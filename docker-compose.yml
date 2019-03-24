@@ -1,6 +1,5 @@
 version: "3"
 services:
-
   nginx:
     build: "./nginx_image"
     tty: true
@@ -19,15 +18,13 @@ services:
       - "80:80"
       - "443:443"
       - "23457:23457"
+    depends_on:
+      - gogs 
     networks:
-      gogs-net:
-        ipv4_address: 172.16.238.2
-
+      - vps-route
   gogs:
     image: gogs/gogs:0.11.66
     restart: always
-    links:
-      - mysql
     environment:
       - "RUN_CROND = true"
       - "ROOT_URL = http://192.168.99.100/gogs/"
@@ -39,9 +36,7 @@ services:
     depends_on:
       - mysql
     networks:
-      gogs-net:
-        ipv4_address: 172.16.238.3
-
+     - vps-route
   mysql:
     image: mysql:5.7.22
     environment:
@@ -52,20 +47,7 @@ services:
     volumes:
       - "./data/mysql:/var/lib/mysql"
     networks:
-      gogs-net:
-        ipv4_address: 172.16.238.4
+      - vps-route
 
 networks:
-  gogs-net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
-
-volumes:
-  db-data:
-    driver: local
-  gogs-data:
-    driver: local
+  vps-route:
