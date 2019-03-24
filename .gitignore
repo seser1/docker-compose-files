@@ -5,11 +5,3 @@
 ssl/
 # htpasswd
 .htpasswd
-
-# ansible host file
-hosts
-# ansible retry file
-*.retry
-
-# vagrant auto-generated files
-.vagrant/

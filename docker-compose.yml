@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
 
   nginx:
@@ -35,6 +35,7 @@ services:
       - gogs-net
     volumes:
       - "./data/gogs:/data"
+      - "./logs/gogs:/data/gogs/log"
     depends_on:
       - mysql
     networks:
